@@ -2,7 +2,7 @@ const global = {
   currentPage: window.location.pathname,
   api: {
     apiKey: "d1de15bd",
-    apiUrl: "http://www.omdbapi.com/",
+    apiUrl: "https://www.omdbapi.com/",
   },
   search: {
     term: "",
@@ -156,7 +156,7 @@ async function displayMoviedetails() {
   document.querySelector("#movie-details").appendChild(div);
   document.querySelector(
     "iframe"
-  ).src = `https://autoembed.co/movie/imdb/${movieID}`;
+  ).src = `httpss://autoembed.co/movie/imdb/${movieID}`;
 }
 
 async function displaySeriesDetails() {
@@ -208,7 +208,7 @@ async function displaySeriesDetails() {
   }
   document.querySelector(
     "iframe"
-  ).src = `https://autoembed.co/tv/imdb/${seriesID}-1-1`;
+  ).src = `httpss://autoembed.co/tv/imdb/${seriesID}-1-1`;
 }
 
 function changeEpisode(e, season) {
@@ -228,7 +228,7 @@ function changeEpisode(e, season) {
 
     document.querySelector(
       "iframe"
-    ).src = `https://autoembed.co/tv/imdb/${seriesID}-${season}-${episode}`;
+    ).src = `httpss://autoembed.co/tv/imdb/${seriesID}-${season}-${episode}`;
   }
 }
 function getUL(e) {
