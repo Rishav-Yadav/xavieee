@@ -1,0 +1,166 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; }
+
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: black;
+  color: white; }
+
+h1 {
+  font-size: 7rem;
+  text-align: center; }
+
+.btn {
+  border: 1px solid white;
+  padding: 0.7rem 0.8rem;
+  color: white;
+  background: black;
+  cursor: pointer; }
+  .btn:disabled {
+    cursor: not-allowed; }
+    .btn:disabled:hover {
+      color: gray; }
+
+a {
+  text-decoration: none;
+  padding: 10px 15px;
+  margin-bottom: 100px;
+  color: white; }
+
+#search-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; }
+  #search-section form {
+    margin-top: 1.2rem;
+    width: 50%;
+    height: 100%; }
+  #search-section input[type="text"] {
+    width: 100%;
+    margin: 1rem auto;
+    padding: 0.5rem; }
+  #search-section .radio {
+    display: flex;
+    margin: 0.5rem 0;
+    justify-content: space-between; }
+    #search-section .radio .radio-button {
+      font-size: 14px; }
+  #search-section .btn {
+    margin-top: 1rem;
+    width: 100%; }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 20px; }
+
+.card {
+  background-color: black;
+  padding: 10px; }
+  .card img {
+    width: 100%;
+    border: 1px solid gray; }
+  .card-body {
+    padding: 10px;
+    font-size: 20px; }
+  .card:hover {
+    transform: scale(1.05);
+    transition: all 0.5s ease-in-out;
+    background: black; }
+
+input:focus {
+  border: none;
+  outline: none; }
+
+navbar {
+  text-align: center;
+  font-size: 2.4rem; }
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 1000px;
+  width: 100%;
+  margin: 1rem auto;
+  padding: 20px 20px; }
+
+#movie-details-section {
+  max-width: 1200px;
+  width: 100%;
+  margin: 1rem auto;
+  padding: 20px 20px; }
+  #movie-details-section #movie-details {
+    margin-top: 2rem; }
+  #movie-details-section .details-bottom {
+    color: lightgrey; }
+
+#series-details-section {
+  max-width: 1200px;
+  width: 100%;
+  margin: 1rem auto;
+  padding: 20px 20px; }
+  #series-details-section #series-details {
+    margin-top: 2rem; }
+  #series-details-section .details-bottom {
+    color: lightgrey; }
+
+.text-muted {
+  font-size: 15px;
+  color: gray; }
+
+ul.visible {
+  display: flex !important; }
+
+.season-container {
+  margin-top: 2rem; }
+  .season-container .ul {
+    display: flex;
+    list-style: none;
+    display: none; }
+
+.season-box {
+  border: 1px solid darkgray;
+  padding: 1rem;
+  margin: 0.7rem 0;
+  min-width: 40%;
+  cursor: pointer; }
+  .season-box:hover {
+    font-size: large; }
+
+.box {
+  border: 1px solid lightgrey;
+  padding: 5px 8px;
+  width: 1.9rem;
+  margin: 10px 7px;
+  cursor: pointer; }
+
+.active {
+  background-color: darkgray; }
+
+iframe {
+  width: 100%;
+  min-height: 600px;
+  max-height: 50vh;
+  box-shadow: 5px 5px 15px #333, -5px -5px 10px #333; }
+
+@media screen and (max-width: 767px) {
+  #search-section {
+    margin: 1rem 1rem;
+    min-width: 100px;
+    height: 100vh; }
+  form {
+    min-width: 100%; }
+  input[type="text"] {
+    width: 100%;
+    padding: 0.5rem; }
+  iframe {
+    min-height: 300px;
+    max-height: 300px; }
+  h1 {
+    font-size: 2rem; } }
