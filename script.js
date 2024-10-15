@@ -252,15 +252,15 @@ function init() {
     case "./":
     case "./index.html":
       break;
-    case "/dist/search.html":
+    case "/search.html":
       console.log("Search case ran");
       searchResults();
       break;
-    case "/dist/movie-details.html":
+    case "/movie-details.html":
       console.log("Movie Detail case ran");
       displayMoviedetails();
       break;
-    case "/dist/series-details.html":
+    case "/series-details.html":
       displaySeriesDetails();
       break;
   }
