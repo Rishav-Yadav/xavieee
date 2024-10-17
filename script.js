@@ -25,6 +25,7 @@ async function fetchAPIData(endpoint) {
     return data;
   } catch (error) {
     showAlert("Server is Not Responding");
+    hideLoader();
   }
 }
 async function getTotalEpisodes(seriesID, season) {
@@ -38,6 +39,7 @@ async function getTotalEpisodes(seriesID, season) {
     return data.Episodes.length;
   } catch (error) {
     showAlert("Server is not Responding");
+    hideLoader();
   }
 }
 async function searchAPIData() {
