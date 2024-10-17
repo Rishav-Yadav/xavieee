@@ -293,11 +293,13 @@ function init() {
   switch (global.currentPage) {
     case "./":
     case "/index.html":
+      showLoader();
+      setTimeout(hideLoader, 1500);
       break;
-    case "/dist/search.html":
+    case "/search.html":
       searchResults();
       break;
-    case "/dist/movie-details.html":
+    case "/movie-details.html":
       document.querySelector("#nav-back").addEventListener("click", () => {
         showLoader();
         window.history.back();
@@ -305,7 +307,7 @@ function init() {
       });
       displayMoviedetails();
       break;
-    case "/dist/series-details.html":
+    case "/series-details.html":
       document.querySelector("#nav-back").addEventListener("click", () => {
         showLoader();
         window.history.back();
