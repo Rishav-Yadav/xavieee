@@ -62,7 +62,7 @@ async function searchResults() {
   showLoader();
   const queryString = window.location.search;
   const urlParameters = new URLSearchParams(queryString);
-  global.search.term = urlParameters.get("search-term");
+  global.search.term = urlParameters.get("search-term").trim();
   global.search.type = urlParameters.get("type");
   if (
     global.search.term === "" ||
