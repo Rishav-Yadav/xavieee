@@ -18,7 +18,7 @@ h1 {
 
 .search-results-container {
   max-width: 1000px;
-  margin: 1.5rem auto; }
+  margin: 2rem auto; }
   .search-results-container h2 {
     margin: 25px; }
 
@@ -120,7 +120,7 @@ a {
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   grid-gap: 1.8rem; }
 
 .card {
@@ -169,7 +169,8 @@ header {
 
 #series-details-section h4 {
   text-align: center;
-  color: #bf2ef0; }
+  color: #bf2ef0;
+  margin: 2rem 0; }
 
 #series-details-section .details-bottom {
   margin-top: 2rem;
@@ -208,10 +209,10 @@ ul.visible {
   .box:hover, .box:focus {
     border: 1px solid #bf2ef0; }
 
-.pagination {
-  margin: 0.5rem 0; }
-  .pagination .page-counter {
-    margin: 1rem 0; }
+#pagination {
+  margin: 2rem 1rem; }
+  #pagination .page-counter {
+    margin-top: 1rem; }
 
 .active {
   background-color: #7a1cac; }
@@ -268,6 +269,8 @@ footer {
 @media screen and (max-width: 767px) {
   #search-section-second {
     height: 60vh; }
+  .search-results-container {
+    width: 350px; }
   .container {
     max-width: 80%; }
     .container h1 {

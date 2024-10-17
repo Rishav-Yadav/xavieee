@@ -260,22 +260,20 @@ function changeEpisode(e, season) {
   }
 }
 function getUL(e) {
+  if (e.target.tagName === "A" || e.target.tagName === "UL") {
+    return;
+  }
   const allul = document.querySelectorAll(".visible");
   allul.forEach((i) => {
     i.classList.remove("visible");
   });
   let target = e.target;
-  if (e.target.tagName === "I") {
-    target = e.target.parentElement;
+  if (target.tagName === "I") {
+    target = target.parentElement;
   }
-  if (e.target.tagName === "A" || e.target.tagName === "UL") {
-    return;
-  }
-
   target.querySelector(".ul").classList.toggle("visible");
 }
 function showAlert(message) {
-  // TODO Alert Box
   const target = document.querySelector("#alert-wrapper");
   target.style.display = "flex";
   target.querySelector(".alert-text").innerText = message;
