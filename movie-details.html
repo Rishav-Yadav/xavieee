@@ -13,25 +13,57 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     />
     <link rel="stylesheet" href="main.css" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="./favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="./favicon/favicon-16x16.png"
+    />
+    <link rel="manifest" href="./favicon/site.webmanifest" />
+    <link rel="stylesheet" href="./loader.css" />
   </head>
   <body>
     <header>
-      <navbar>
-        <h2>XAVIEEE</h2>
-      </navbar>
+      <h2><a href="index.html">XAVIEEE</a></h2>
     </header>
 
     <section id="movie-details-section">
-      <div class="back">
-        <a href="index.html"
-          ><i class="fas fa-chevron-left"></i> Back to Movies</a
-        >
+      <div class="detail-container">
+        <div class="back">
+          <button class="btn" id="nav-back">
+            <i class="fas fa-chevron-left"></i> Back to Search Results
+          </button>
+        </div>
         <div id="movie-details"></div>
-      </div>
-      <div id="video-player">
-        <iframe src="" frameborder="0" width="100%" height="100%"></iframe>
+        <button class="big-btn">
+          <a href="" target="_blank"
+            >Watch Online <i class="fas fa-chevron-right"></i>
+          </a>
+        </button>
       </div>
     </section>
+    <div id="loader-wrapper">
+      <div class="loader-overlay"></div>
+      <div class="loader-container">
+        <img src="./images/loader.png" alt="Walking Loader" class="loader" />
+        <p class="loader-text">I'm Bringing up your show... Please wait</p>
+        <!-- Text below the loader -->
+      </div>
+    </div>
+    <footer>
+      <h2>Proudly Made For Her <i class="fa-solid fa-heart"></i></h2>
+    </footer>
     <script src="script.js"></script>
   </body>
 </html>

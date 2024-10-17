@@ -1,0 +1,69 @@
+/* Wrapper to position loader and overlay */
+#loader-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: none; /* Initially hidden */
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; /* On top of all elements */
+}
+
+/* Dark overlay behind the loader */
+.loader-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.95); /* Semi-transparent black */
+}
+
+/* Loader container to hold both the image and the text */
+.loader-container {
+  position: relative;
+  z-index: 10000;
+  text-align: center; /* Center text under the image */
+}
+
+/* Loader image animation */
+.loader {
+  width: 150px;
+  height: auto;
+  animation: walk-animation 0.8s ease-in-out infinite; /* Apply walking animation */
+}
+
+/* Loader text style */
+.loader-text {
+  margin-top: 10px;
+  font-size: 18px;
+  color: #bf2ef0; /* Text color */
+  font-family: Arial, sans-serif; /* Change font as needed */
+}
+
+/* Walking animation to simulate alternating leg movement */
+@keyframes walk-animation {
+  0% {
+    transform: translateY(0) rotate(0deg); /* Neutral position */
+  }
+  25% {
+    transform: translateY(-5px) rotate(-5deg); /* Tilt left */
+  }
+  50% {
+    transform: translateY(0) rotate(0deg); /* Back to center */
+  }
+  75% {
+    transform: translateY(-5px) rotate(5deg); /* Tilt right */
+  }
+  100% {
+    transform: translateY(0) rotate(0deg); /* Back to center */
+  }
+}
+
+/* Apply transparency to the body when the loader is active */
+body.loading {
+  opacity: 0.5; /* Make content slightly transparent */
+  pointer-events: none; /* Disable interactions */
+}

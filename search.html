@@ -13,51 +13,94 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     />
     <link rel="stylesheet" href="main.css" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="./favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="./favicon/favicon-16x16.png"
+    />
+    <link rel="manifest" href="./favicon/site.webmanifest" />
+    <link rel="stylesheet" href="./loader.css" />
   </head>
   <body>
-    <section id="search-section">
-      <h1>XAVIEEE</h1>
-      <form action="./search.html">
-        <input
-          type="text"
-          name="search-term"
-          id="search-term"
-          placeholder="Enter the movie title "
-        />
+    <section id="search-section-second">
+      <div class="container">
+        <h1><a href="index.html">XAVIEEE</a></h1>
+        <form action="./search.html">
+          <input
+            type="text"
+            name="search-term"
+            id="search-term"
+            placeholder="Enter the movie title "
+          />
 
-        <div class="radio">
-          <div class="radio-button">
-            <input type="radio" id="movie" name="type" value="movie" checked />
-            <label for="movie">Movies</label>
+          <div class="radio">
+            <div class="radio-button">
+              <input
+                type="radio"
+                id="movie"
+                name="type"
+                value="movie"
+                checked
+              />
+              <label for="movie">Movies</label>
+            </div>
+            <div class="radio-button">
+              <input type="radio" id="series" name="type" value="series" />
+              <label for="series">Tv Series</label>
+            </div>
           </div>
-          <div class="radio-button">
-            <input type="radio" id="series" name="type" value="series" />
-            <label for="shows">Tv Series</label>
-          </div>
-        </div>
-        <button class="btn" type="submit">
-          <i class="fas fa-search"></i> Search
-        </button>
-      </form>
+          <button class="btn" type="submit">
+            <i class="fas fa-search"></i> Search
+          </button>
+        </form>
+      </div>
     </section>
-
-    <!-- njawk.;lm;l. -->
 
     <!-- Search Results -->
     <section id="search-resultss">
-      <heading id="search-results-heading"></heading>
-      <div id="search-results" class="grid">
-        <div class="card"></div>
-        <div class="card-body">
-          <h5 class="card-title">Movie or Show Name</h5>
-          <p class="card-text">
-            <small class="text-muted"> Release:XX/XX/XXX </small>
-          </p>
+      <div class="search-results-container">
+        <heading id="search-results-heading"></heading>
+        <div id="search-results" class="grid">
+          <div class="card"></div>
+          <div class="card-body">
+            <h5 class="card-title">Movie or Show Name</h5>
+            <p class="card-text">
+              <small class="text-muted"> Release:XX/XX/XXX </small>
+            </p>
+          </div>
         </div>
+        <div id="pagination"></div>
       </div>
-
-      <div id="pagination"></div>
     </section>
+    <div id="loader-wrapper">
+      <div class="loader-overlay"></div>
+      <div class="loader-container">
+        <img src="./images/loader.png" alt="Walking Loader" class="loader" />
+        <p class="loader-text">I'm Bringing up your show... Please wait</p>
+        <!-- Text below the loader -->
+      </div>
+    </div>
+    <div id="alert-wrapper">
+      <div class="alert-overlay"></div>
+      <div class="alert-container">
+        <p class="alert-text"></p>
+      </div>
+    </div>
+    <footer>
+      <h2>Proudly Made For Her <i class="fa-solid fa-heart"></i></h2>
+    </footer>
     <script src="script.js"></script>
   </body>
 </html>

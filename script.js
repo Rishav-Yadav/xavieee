@@ -18,45 +18,70 @@ const global = {
 async function fetchAPIData(endpoint) {
   const apiKey = global.api.apiKey;
   const apiUrl = global.api.apiUrl;
-  const resp = await fetch(`${apiUrl}?apikey=${apiKey}${endpoint}`);
-  const data = await resp.json();
-  return data;
+  try {
+    const resp = await fetch(`${apiUrl}?apikey=${apiKey}${endpoint}`);
+    const data = await resp.json();
+    if (resp.ok !== true) throw new Error("Server is Not Responding");
+    return data;
+  } catch (error) {
+    showAlert("Server is Not Responding");
+  }
 }
 async function getTotalEpisodes(seriesID, season) {
   const apiKey = global.api.apiKey;
   const apiUrl = global.api.apiUrl;
-  const resp = await fetch(
-    `${apiUrl}?apikey=${apiKey}&i=${seriesID}&type=series&season=${season}`
-  );
-  const data = await resp.json();
-
-  return data.Episodes.length;
+  try {
+    const resp = await fetch(
+      `${apiUrl}?apikey=${apiKey}&i=${seriesID}&type=series&season=${season}`
+    );
+    const data = await resp.json();
+    return data.Episodes.length;
+  } catch (error) {
+    showAlert("Server is not Responding");
+  }
 }
 async function searchAPIData() {
   const apiKey = global.api.apiKey;
   const apiUrl = global.api.apiUrl;
-  const resp = await fetch(
-    `${apiUrl}?apikey=${apiKey}&s=${global.search.term}&type=${global.search.type}&page=${global.search.page}`
-  );
-  const results = await resp.json();
+  try {
+    const resp = await fetch(
+      `${apiUrl}?apikey=${apiKey}&s=${global.search.term}&type=${global.search.type}&page=${global.search.page}`
+    );
+    const results = await resp.json();
 
-  return results;
+    if (results.Response === "False") {
+      return { Search: [], totalResults: 0 };
+    }
+    return results;
+  } catch (error) {
+    showAlert("Server is not Responding");
+  }
 }
 // Display Search Results
 async function searchResults() {
+  showLoader();
   const queryString = window.location.search;
   const urlParameters = new URLSearchParams(queryString);
   global.search.term = urlParameters.get("search-term");
   global.search.type = urlParameters.get("type");
+  if (
+    global.search.term === "" ||
+    global.search.term === null ||
+    global.search.term === " "
+  ) {
+    showAlert("Please Enter a Title to Search");
+    hideLoader();
+    return;
+  }
   if (global.search.term !== "" && global.search.term !== null) {
     const { Search: results, totalResults: total_results } =
       await searchAPIData();
     global.search.page = 1;
     global.search.totalPages = Math.ceil(total_results / 10);
     global.search.totalResults = total_results;
-    console.log(results);
     if (results.length === 0) {
       showAlert("No Results Found");
+      hideLoader();
       return;
     }
     displaySearchResults(results);
@@ -64,9 +89,11 @@ async function searchResults() {
   } else {
     showAlert("Please Enter a Search Term !");
   }
+  hideLoader();
 }
 
 function displaySearchResults(results) {
+  showLoader();
   document.querySelector("#search-results").innerHTML = "";
   document.querySelector("#search-results-heading").innerHTML = "";
   document.querySelector("#pagination").innerHTML = "";
@@ -88,7 +115,7 @@ function displaySearchResults(results) {
       result.Year
     }</small></p>
     </div>`;
-    console.log(global.search.totalResults);
+
     document.querySelector(
       "#search-results-heading"
     ).innerHTML = `<h2>${results.length} of ${global.search.totalResults} Results for ${global.search.term}</h2>`;
@@ -101,6 +128,7 @@ function displaySearchResults(results) {
     left: 0,
     behaviour: "smooth",
   });
+  hideLoader();
 }
 
 // Pagination
@@ -115,7 +143,6 @@ function displayPagination() {
   const prev = document.querySelector("#prev");
   const next = document.querySelector("#next");
   if (global.search.page === 1) {
-    console.log("disable prev");
     prev.disabled = true;
   }
   if (global.search.page === global.search.totalPages) {
@@ -134,6 +161,7 @@ function displayPagination() {
 }
 
 async function displayMoviedetails() {
+  showLoader();
   const movieID = window.location.search.split("=")[1];
 
   const movie = await fetchAPIData(`&i=${movieID}`);
@@ -154,12 +182,15 @@ async function displayMoviedetails() {
 </div>`;
 
   document.querySelector("#movie-details").appendChild(div);
-  document.querySelector(
-    "iframe"
-  ).src = `https://autoembed.co/movie/imdb/${movieID}`;
+  document
+    .querySelector(".big-btn")
+    .querySelector("a")
+    .setAttribute("href", `https://autoembed.co/movie/imdb/${movieID}`);
+  hideLoader();
 }
 
 async function displaySeriesDetails() {
+  showLoader();
   const seriesID = window.location.search.split("=")[1];
 
   const series = await fetchAPIData(`&i=${seriesID}`);
@@ -191,14 +222,12 @@ async function displaySeriesDetails() {
     ul.classList.add("ul");
     ul.classList.add("visible");
     for (let j = 1; j <= totalEpisodes; j++) {
-      const li = document.createElement("li");
-      li.classList.add("box");
-      li.innerText = j;
-      li.addEventListener("click", changeEpisode);
-      ul.appendChild(li);
-      if (j === 1) {
-        li.classList.add("active");
-      }
+      const a = document.createElement("a");
+      a.classList.add("box");
+      a.innerText = j;
+      a.setAttribute("target", "_blank");
+      a.addEventListener("click", changeEpisode);
+      ul.appendChild(a);
     }
     seasonDiv.appendChild(ul);
     document.querySelector(".season-container").appendChild(seasonDiv);
@@ -206,13 +235,11 @@ async function displaySeriesDetails() {
       ul.classList.remove("visible");
     }
   }
-  document.querySelector(
-    "iframe"
-  ).src = `https://autoembed.co/tv/imdb/${seriesID}-1-1`;
+  hideLoader();
 }
 
 function changeEpisode(e, season) {
-  if (e.target.tagName !== "LI") return;
+  if (e.target.tagName !== "A") return;
   else {
     const allActiveEpisodes = document.querySelectorAll(".active");
     allActiveEpisodes.forEach((i) => {
@@ -223,44 +250,67 @@ function changeEpisode(e, season) {
     const urlParameters = new URLSearchParams(queryString);
     const seriesID = urlParameters.get("id");
     const season = e.target.parentElement.parentElement.innerText.toString()[7];
-    console.log(seriesID, season);
-    const episode = e.target.innerText;
 
-    document.querySelector(
-      "iframe"
-    ).src = `https://autoembed.co/tv/imdb/${seriesID}-${season}-${episode}`;
+    const episode = e.target.innerText;
+    console.log(e.target);
+    e.target.setAttribute(
+      "href",
+      `https://autoembed.co/tv/imdb/${seriesID}-${season}-${episode}`
+    );
   }
 }
 function getUL(e) {
+  const allul = document.querySelectorAll(".visible");
+  allul.forEach((i) => {
+    i.classList.remove("visible");
+  });
   let target = e.target;
   if (e.target.tagName === "I") {
     target = e.target.parentElement;
   }
-  if (e.target.tagName === "LI" || e.target.tagName === "UL") {
+  if (e.target.tagName === "A" || e.target.tagName === "UL") {
     return;
   }
 
   target.querySelector(".ul").classList.toggle("visible");
 }
-function showAlert() {
+function showAlert(message) {
   // TODO Alert Box
+  const target = document.querySelector("#alert-wrapper");
+  target.style.display = "flex";
+  target.querySelector(".alert-text").innerText = message;
+  setTimeout(() => {
+    target.style.display = "none";
+  }, 2000);
 }
-
+function showLoader() {
+  document.querySelector("#loader-wrapper").style.display = "flex";
+}
+function hideLoader() {
+  document.querySelector("#loader-wrapper").style.display = "none";
+}
 function init() {
-  console.log(global.currentPage);
   switch (global.currentPage) {
     case "./":
-    case "./index.html":
+    case "/index.html":
       break;
-    case "/search.html":
-      console.log("Search case ran");
+    case "/dist/search.html":
       searchResults();
       break;
-    case "/movie-details.html":
-      console.log("Movie Detail case ran");
+    case "/dist/movie-details.html":
+      document.querySelector("#nav-back").addEventListener("click", () => {
+        showLoader();
+        window.history.back();
+        hideLoader();
+      });
       displayMoviedetails();
       break;
-    case "/series-details.html":
+    case "/dist/series-details.html":
+      document.querySelector("#nav-back").addEventListener("click", () => {
+        showLoader();
+        window.history.back();
+        hideLoeader();
+      });
       displaySeriesDetails();
       break;
   }
